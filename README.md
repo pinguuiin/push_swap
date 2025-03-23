@@ -1,2 +1,2 @@
 # push_swap
-rank 02 project
+42 project rank 02
