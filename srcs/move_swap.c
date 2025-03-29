@@ -24,6 +24,8 @@ void	swap(t_stack **lst)
 		ptr1->next = ptr2->next;
 		ptr2->prev = ptr1->prev;
 		ptr1->prev = ptr2;
+		if (ptr2->next)
+			ptr2->next->prev = ptr1;
 		ptr2->next = ptr1;
 		*lst = ptr2;
 	}

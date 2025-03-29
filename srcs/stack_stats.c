@@ -33,31 +33,30 @@ void	create_index_and_upper(t_stack **lst)
 	}
 }
 
-static void	find_target(t_stack *a, t_stack **b)
+static void	find_target(t_stack **a, t_stack **b)
 {
-	t_stack	*min;
 	t_stack	*target;
-	t_stack	*ptr;
+	t_stack	*ptr_a;
+	t_stack	*ptr_b;
 
-	ptr = *b;
-	min = find_min(a);
-	while (ptr)
+	ptr_a = *a;
+	ptr_b = *b;
+	while (ptr_b)
 	{
 		target = NULL;
-		while (a)
+		ptr_a = *a;
+		while (ptr_a)
 		{
-			if (!target && a->value > ptr->value)
-				target = a;
-			if (target && a->value > ptr->value && a->value < target->value)
-				target = a;
-			a = a->next;
+			if (!target && ptr_a->value > ptr_b->value)
+				target = ptr_a;
+			if (target && ptr_a->value > ptr_b->value && ptr_a->value < target->value)
+				target = ptr_a;
+			ptr_a = ptr_a->next;
 		}
 		if (!target)
-			target = min;
-		// if (!target)
-		// 	ft_putstr_fd("Here!", 1);
-		ptr->target = target;
-		ptr = ptr->next;
+			target = find_min(*a);
+		ptr_b->target = target;
+		ptr_b = ptr_b->next;
 	}
 }
 
@@ -83,36 +82,34 @@ static void	calculate_cost(t_stack **lst)
 
 static void	calculate_cheapest(t_stack **b)
 {
-	int	cost_total;
 	t_stack	*ptr;
 	t_stack	*cheapest;
 
 	ptr = *b;
 	cheapest = *b;
-	cost_total = ptr->cost + ptr->target->cost;
-
-	// ft_putnbr_fd(ptr->cost, 1);
-	// ft_putnbr_fd(ptr->target->cost, 1);
-	// return;
 	while (ptr)
 	{
-		// if (!ptr->target)
-		// 	ft_putstr_fd("Here!", 1);
-		ptr->cheapest = NULL;
-		if (ptr->cost + ptr->target->cost < cost_total)
+		// if (ptr->cost + ptr->target->cost < cheapest->cost + cheapest->target->cost)
+			// cheapest = ptr;
+		if (ptr->cost + ptr->target->cost <= cheapest->cost + cheapest->target->cost + 4 && ptr->value > cheapest->value)
 			cheapest = ptr;
 		ptr = ptr->next;
 	}
-	(*b)->cheapest = cheapest;
+	ptr = *b;
+	while (ptr)
+	{
+		ptr->cheapest = cheapest;
+		ptr = ptr->next;
+	}
 }
 
 void	stack_stats_initializer(t_stack **a, t_stack **b)
 {
 	create_index_and_upper(a);
 	create_index_and_upper(b);
-	create_blocks(a);
+	//create_blocks(a);
 	calculate_cost(a);
 	calculate_cost(b);
-	find_target(*a, b);
+	find_target(a, b);
 	calculate_cheapest(b);
 }

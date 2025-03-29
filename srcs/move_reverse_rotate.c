@@ -20,7 +20,7 @@ void	reverse_rotate(t_stack **lst)
 	if (*lst && (*lst)->next)
 	{
 		ptr1 = *lst;
-		ptr2 = ptr1;
+		ptr2 = *lst;
 		while (ptr2->next)
 			ptr2 = ptr2->next;
 		ptr2->prev->next = NULL;

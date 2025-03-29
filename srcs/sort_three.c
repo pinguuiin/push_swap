@@ -32,8 +32,6 @@ void	sort_three(t_stack **lst)
 
 	create_index_and_upper(lst);
 	max = calculate_max_index(*lst);
-	// ft_putnbr_fd(max, 1);
-	// ft_putchar_fd(' ', 1);
 	if (max == 0)
 	{
 		ra(lst); ////////////////////////////////////////////

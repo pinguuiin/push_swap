@@ -12,7 +12,21 @@
 
 #include "push_swap.h"
 
-int	calculate_tertile_first(t_stack *lst, int tertile)
+void	calculate_block_divider(t_stack **lst)
+{
+	int		size;
+	t_stack	*ptr;
+
+	ptr = *lst;
+	size = count_size(*lst);
+	while (ptr)
+	{
+		ptr->block_divider = 0.0125f * size + 3.75f;
+		ptr = ptr->next;
+	}
+}
+
+static int	get_tertile_first(t_stack *lst, int tertile)
 {
 	int	num;
 	int	size;
@@ -27,12 +41,12 @@ int	calculate_tertile_first(t_stack *lst, int tertile)
 			num++;
 		ptr = ptr->next;
 	}
-	if (num < size / 3)
-		calculate_tertile_first(lst, tertile + 1);
+	if (num < size / lst->block_divider)
+		get_tertile_first(lst, tertile + 1);
 	return (tertile);
 }
 
-int	calculate_tertile_second(t_stack *lst, int tertile1, int tertile2)
+static int	get_tertile_second(t_stack *lst, int tertile1, int tertile2)
 {
 	int	num;
 	int	size;
@@ -47,8 +61,8 @@ int	calculate_tertile_second(t_stack *lst, int tertile1, int tertile2)
 			num++;
 		ptr = ptr->next;
 	}
-	if (num < size / 3)
-		calculate_tertile_second(lst, tertile1, tertile2 + 1);
+	if (num < size / lst->block_divider)
+		get_tertile_second(lst, tertile1, tertile2 + 1);
 	return (tertile2);
 }
 
@@ -62,8 +76,9 @@ void	create_blocks(t_stack **lst)
 	ptr = *lst;
 	min = calculate_min(*lst);
 	size = count_size(*lst);
-	tertile[0] = calculate_tertile_first(*lst, min + size / 3);
-	tertile[1] = calculate_tertile_second(*lst, tertile[0], tertile[0] + size / 3);
+	tertile[0] = get_tertile_first(*lst, min + size / ptr->block_divider);
+	tertile[1] = get_tertile_second(*lst, tertile[0], tertile[0] + \
+				size / ptr->block_divider);
 	while (ptr)
 	{
 		if (ptr->value < tertile[0])
@@ -76,29 +91,38 @@ void	create_blocks(t_stack **lst)
 	}
 }
 
-void	block_sort(t_stack **a, t_stack **b)
+void	block_sort(t_stack **a, t_stack **b, int divider)
 {
 	int	i;
+	int	counter;
 
 	create_blocks(a);
 	i = count_size(*a);
-	while (count_size(*a) > 3 && i > 0)
+	counter = 0;
+	while (count_size(*a) > 3 && count_size(*a) > divider - 1 && i > 0)
 	{
-		if ((*a)->block == 0)
+		if ((*a)->block == 1)
+		{
+			pb(a, b);
+			counter++;
+		}
+		else if ((*a)->block == 0)
+		{
+			pb(a, b);
+			if (counter)
+				rb(b);
+		}
+		else
+			ra(a);
+		i--;
+	}
+	if (count_size(*a) > 3 && count_size(*a) > divider - 1)
+		block_sort(a, b, divider);
+	while (count_size(*a) > 3)
+	{
+		if ((*a)->value == calculate_min(*a))
 			pb(a, b);
 		else
 			ra(a);
-		i--;
 	}
-	i = count_size(*a);
-	while (count_size(*a) > 3 && i > 0)
-	{
-		if ((*a)->block == 1)
-			pb(a,  b);
-		else
-			ra(a);
-		i--;
-	}
-	while (count_size(*a) > 3)
-		pb(a, b);
 }
