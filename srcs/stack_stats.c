@@ -14,8 +14,8 @@
 
 void	create_index_and_upper(t_stack **lst)
 {
-	int	i;
-	int	size;
+	int		i;
+	int		size;
 	t_stack	*ptr;
 
 	i = 0;
@@ -49,7 +49,8 @@ static void	find_target(t_stack **a, t_stack **b)
 		{
 			if (!target && ptr_a->value > ptr_b->value)
 				target = ptr_a;
-			if (target && ptr_a->value > ptr_b->value && ptr_a->value < target->value)
+			if (target && ptr_a->value > ptr_b->value \
+				&& ptr_a->value < target->value)
 				target = ptr_a;
 			ptr_a = ptr_a->next;
 		}
@@ -62,8 +63,8 @@ static void	find_target(t_stack **a, t_stack **b)
 
 static void	calculate_cost(t_stack **lst)
 {
-	int	i;
-	int	size;
+	int		i;
+	int		size;
 	t_stack	*ptr;
 
 	i = 0;
@@ -89,9 +90,8 @@ static void	calculate_cheapest(t_stack **b)
 	cheapest = *b;
 	while (ptr)
 	{
-		// if (ptr->cost + ptr->target->cost < cheapest->cost + cheapest->target->cost)
-			// cheapest = ptr;
-		if (ptr->cost + ptr->target->cost <= cheapest->cost + cheapest->target->cost + 4 && ptr->value > cheapest->value)
+		if (ptr->cost + ptr->target->cost <= cheapest->cost + \
+			cheapest->target->cost + 3 && ptr->value > cheapest->value)
 			cheapest = ptr;
 		ptr = ptr->next;
 	}
@@ -107,7 +107,6 @@ void	stack_stats_initializer(t_stack **a, t_stack **b)
 {
 	create_index_and_upper(a);
 	create_index_and_upper(b);
-	//create_blocks(a);
 	calculate_cost(a);
 	calculate_cost(b);
 	find_target(a, b);

@@ -30,6 +30,7 @@ void	swap(t_stack **lst)
 		*lst = ptr2;
 	}
 }
+
 void	sa(t_stack **a)
 {
 	swap(a);

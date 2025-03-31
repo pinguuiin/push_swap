@@ -14,8 +14,8 @@
 
 static int	ps_atoi(char *s)
 {
-	int		i;
-	int		sign;
+	int			i;
+	int			sign;
 	long long	num;
 
 	i = 0;
@@ -118,7 +118,7 @@ int	input_check(int argc, char **argv, int **arr, int *len)
 	}
 	while (argv[*len])
 		(*len)++;
-	if(!number_check(argc, &argv, *len))
+	if (!number_check(argc, &argv, *len))
 		return (0);
 	if (!save_to_array(argc, &argv, arr, *len))
 		return (0);

@@ -14,7 +14,7 @@
 
 static int	stack_initializer(int **arr, t_stack **a, int len)
 {
-	int	idx;
+	int		idx;
 	t_stack	*new_node;
 	t_stack	*ptr;
 
@@ -24,7 +24,7 @@ static int	stack_initializer(int **arr, t_stack **a, int len)
 	{
 		new_node = malloc(sizeof(t_stack));
 		if (!new_node)
-			return(free_array_and_list(arr, a));
+			return (free_array_and_list(arr, a));
 		new_node->index = idx;
 		new_node->value = (*arr)[idx];
 		new_node->prev = ptr;
@@ -50,7 +50,7 @@ int	is_sorted(t_stack **a)
 	while (ptr && ptr->next)
 	{
 		if (ptr->value > ptr->next->value)
-			return(0);
+			return (0);
 		ptr = ptr->next;
 	}
 	return (free_list(a));
@@ -58,8 +58,8 @@ int	is_sorted(t_stack **a)
 
 int	main(int argc, char **argv)
 {
-	int	*arr;
-	int	len;
+	int		*arr;
+	int		len;
 	t_stack	*a;
 	t_stack	*b;
 

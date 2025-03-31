@@ -14,8 +14,8 @@
 
 int	ft_isnum(char *s)
 {
-	int	i;
-	int	sign;
+	int			i;
+	int			sign;
 	long long	num;
 
 	i = 0;
@@ -43,12 +43,14 @@ int	ft_isnum(char *s)
 
 int	count_size(t_stack *lst)
 {
-	int	i;
+	int		i;
+	t_stack	*ptr;
 
 	i = 0;
-	while (lst)
+	ptr = lst;
+	while (ptr)
 	{
-		lst = lst->next;
+		ptr = ptr->next;
 		i++;
 	}
 	return (i);

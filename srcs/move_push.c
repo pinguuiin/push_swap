@@ -30,6 +30,7 @@ void	push(t_stack **lst1, t_stack **lst2)
 		*lst2 = ptr1;
 	}
 }
+
 void	pa(t_stack **a, t_stack **b)
 {
 	push(b, a);

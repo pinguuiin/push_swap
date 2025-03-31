@@ -30,6 +30,7 @@ void	rotate(t_stack **lst)
 		ptr1->next = NULL;
 	}
 }
+
 void	ra(t_stack **a)
 {
 	rotate(a);

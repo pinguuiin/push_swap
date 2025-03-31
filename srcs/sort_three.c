@@ -34,7 +34,7 @@ void	sort_three(t_stack **lst)
 	max = calculate_max_index(*lst);
 	if (max == 0)
 	{
-		ra(lst); ////////////////////////////////////////////
+		ra(lst);
 		if ((*lst)->value > (*lst)->next->value)
 			sa(lst);
 	}

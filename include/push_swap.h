@@ -16,7 +16,6 @@
 # include "../srcs/libft/libft.h"
 # include <stdlib.h>
 # include <limits.h>
-# include <stdio.h>
 
 typedef struct s_stack
 {
@@ -34,7 +33,7 @@ typedef struct s_stack
 
 void	calculate_block_divider(t_stack **lst);
 void	create_blocks(t_stack **lst);
-void	block_sort(t_stack **a, t_stack **b, int divider);
+void	block_sort(t_stack **a, t_stack **b);
 void	free_array(char **s, int len);
 int		free_list(t_stack **a);
 int		free_array_and_list(int **arr, t_stack **a);

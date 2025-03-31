@@ -110,15 +110,14 @@ void	sort_stack(t_stack **a, t_stack **b)
 		sort_three(a);
 	else
 	{
-		calculate_block_divider(a);
-		block_sort(a, b, (*a)->block_divider);
+		block_sort(a, b);
 		sort_three(a);
 		while (*b)
 		{
 			stack_stats_initializer(a, b);
-			if ((*b)->cheapest->upper == 1 && (*b)->cheapest->target->upper == 1)
+			if ((*b)->cheapest->upper && (*b)->cheapest->target->upper)
 				both_up(a, b);
-			else if ((*b)->cheapest->upper == 0 && (*b)->cheapest->target->upper == 0)
+			else if (!((*b)->cheapest->upper || (*b)->cheapest->target->upper))
 				both_down(a, b);
 			else
 				up_down(a, b);
