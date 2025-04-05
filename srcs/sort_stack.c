@@ -84,7 +84,7 @@ static void	up_down(t_stack **a, t_stack **b)
 	pa(a, b);
 }
 
-void	sort_a_rotate(t_stack **a)
+static void	sort_a_rotate(t_stack **a)
 {
 	t_stack	*min;
 
@@ -110,6 +110,7 @@ void	sort_stack(t_stack **a, t_stack **b)
 		sort_three(a);
 	else
 	{
+		calculate_block_divider(a);
 		block_sort(a, b);
 		sort_three(a);
 		while (*b)

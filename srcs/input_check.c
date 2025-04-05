@@ -66,7 +66,7 @@ static int	number_check(int argc, char ***argv, int len)
 		{
 			if (argc == 2)
 				free_array(*argv, len);
-			ft_putstr_fd("Error\n", 1);
+			ft_putstr_fd("Error\n", 2);
 			return (0);
 		}
 		i++;
@@ -96,7 +96,7 @@ static int	save_to_array(int argc, char ***argv, int **arr, int len)
 	if (ft_isdup(*arr, len))
 	{
 		free(*arr);
-		ft_putstr_fd("Error\n", 1);
+		ft_putstr_fd("Error\n", 2);
 		return (0);
 	}
 	return (1);
@@ -114,6 +114,7 @@ int	input_check(int argc, char **argv, int **arr, int *len)
 	{
 		if (argc == 2 && argv)
 			free_array(argv, 1);
+		ft_putstr_fd("Error\n", 2);
 		return (0);
 	}
 	while (argv[*len])

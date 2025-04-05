@@ -21,7 +21,7 @@ int	ft_isnum(char *s)
 	i = 0;
 	num = 0;
 	sign = 1;
-	if (!*s)
+	if (!s || !s[i] || ((s[i] == 43 || s[i] == 45) && !s[i + 1]))
 		return (0);
 	if (s[i] == 43 || s[i] == 45)
 	{
